@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">   
-        <FetchData category="sport" topic="man" fetchedNumber={3}/>
+        <FetchData category="sport" topic="man" fetchedNumber={4}/>
       </div>
     );
   }
