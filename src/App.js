@@ -8,7 +8,7 @@ class App extends Component {
       data: {}
     }
   }
-  
+
   componentDidMount(){//T-shirt
     fetch("https://asos2.p.rapidapi.com/products/v2/list?offset=0&categoryId=4209&limit=10&store=US&country=US&priceMin=10&currency=USD&priceMax=1000&sort=freshness&lang=en-US&q=shoes&sizeSchema=US", {
       "method": "GET",
