@@ -1,0 +1,100 @@
+.navbar {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    line-height: 1.3125rem;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    margin:0;
+    z-index:100;
+}
+
+
+
+.brand i{
+    color: black;
+}
+
+
+.navbar a {
+    color: #000;
+    text-decoration: none;
+}
+
+
+.nav-products span {
+    color: black;
+}
+
+.nav-login span {
+    color: black;
+}
+
+.nav-login, .nav-cart, .nav-fav {
+    margin-left: 50px;
+}
+
+.nav-fav i {
+    color: black;
+}
+
+.nav-cart i {
+    color: black;
+}
+
+.nav-count {
+    margin-left: 2px;
+}
+
+.nav-login:hover, .nav-cart:hover, .nav-products:hover, .nav-fav:hover {
+    border-bottom: 2px solid black;
+}
+
+.nav-icon {
+    display: none;
+}
+
+@media screen and (max-width: 960px) {
+    form{
+        .form-control{
+            width: 90%;
+        }
+    }
+    .nav-item {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        top: 80px;
+        left: -110%;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .nav-login, .nav-cart, .nav-fav {
+        margin-left: 0px;
+    }
+
+    .nav-item.active {
+        left: 0px;
+        opacity: 1;
+        transition: all 0.5s ease;
+        z-index: 1;
+    }
+
+    .nav-products:hover, .nav-login:hover, .nav-cart:hover {
+        border-bottom: 1px solid black;
+    }
+
+    .nav-icon {
+        display: block;
+        font-size: 30px;
+    }
+
+    .nav-icon:hover {
+        cursor: pointer;
+    }
+}
