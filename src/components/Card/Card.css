@@ -1,0 +1,13 @@
+.CardItem{
+    width: 370px;
+    height: 435px;
+    margin: 15px;
+    margin-bottom: 200px;
+    
+}
+
+.CardImage{
+    
+    width: 100%;
+    height: 100%;
+}

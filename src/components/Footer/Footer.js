@@ -53,14 +53,14 @@ const Footer = () => {
         </div>
       </div>
       <div className="row end">
-        <div className="col-md-1"><span class="region">US/EN</span></div>
-        <div className="col-md-3"><span class="copy">&copy;2021 Collection</span></div>
+        <div className="col-md-1"><span className="region">US/EN</span></div>
+        <div className="col-md-3"><span className="copy">&copy;2021 Collection</span></div>
         <div className="col-md-4 icon">
-          <i class="fab fa-facebook-f f"></i>
-          <i class="fab fa-twitter f"></i>
-          <i class="fab fa-youtube f"></i>
-          <i class="fab fa-instagram f"></i>
-          <i class="fab fa-pinterest-p f"></i>
+          <i className="fab fa-facebook-f f"></i>
+          <i className="fab fa-twitter f"></i>
+          <i className="fab fa-youtube f"></i>
+          <i className="fab fa-instagram f"></i>
+          <i className="fab fa-pinterest-p f"></i>
         </div>
         <div className="col-md-4 terms">
           <span><a href="#">Terms & Conditions</a> </span>

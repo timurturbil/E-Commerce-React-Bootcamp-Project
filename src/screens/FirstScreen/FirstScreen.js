@@ -6,9 +6,21 @@ import dress from "../../assets/dress.jpg";
 import jean from "../../assets/jean.jpg"
 import sweater from "../../assets/sweater.jpg"
 import "./FirstScreen.scss"
-
-const FirstScreen = () => {
-
+import { useHistory } from "react-router";
+import {
+  Link, 
+} from "react-router-dom";
+const FirstScreen = (props) => {
+  const {
+    setCategory
+  } = props;
+    const history = useHistory();
+    
+    /* const sendData = (data, e) => {
+      history.push({
+         pathname:  "/products",
+      });
+   } */
     const settings = {
         dots: false,
         arrows: false,
@@ -25,15 +37,14 @@ const FirstScreen = () => {
 
     return (
         <>
-       
             <Slider {...settings}>
                 <div className="slider-wrapper">
                     <img src={clothes} alt=""/>
                     <div className="slider-content">
                         <h1>Spring Collection</h1>
                         <div className="slider-wrapper-buttons">
-                            <button>Explore</button>
-                            <button>Shop Now</button>
+                        <button><Link style={{color: "black"}} to="/order">Shop Now</Link></button>
+                          <button><Link style={{color: "black"}} to="/products">Explore</Link></button>
                         </div>
                     </div>
                 </div>
@@ -42,7 +53,9 @@ const FirstScreen = () => {
                     <div className="slider-content-1">
                         <h1>New Arrivals</h1>
                         <div className="slider-wrapper-buttons-1">
-                            <button>Shop Now</button>
+                          <button><Link style={{color: "white"}} to="/order">Shop Now</Link></button>
+                          <button><Link style={{color: "white"}} to="/products">Explore</Link></button>
+                        
                         </div>
                     </div>
                 </div>
@@ -56,7 +69,7 @@ const FirstScreen = () => {
               alt=""
             />
             <div className="explore-card-content">
-              <h1>Sweater</h1>
+              <button style={{color: "black"}} onClick={() => setCategory("Sweater")}><Link style={{color: "black"}} to="/products">Sweater</Link></button>
             </div>
           </div>
           <div className="explore-card">
@@ -65,7 +78,7 @@ const FirstScreen = () => {
               alt=""
             />
             <div className="explore-card-content">
-              <h1>Dress</h1>
+            <button style={{color: "black"}} onClick={() => setCategory("Dress")}><Link style={{color: "black"}} to="/products">Dress</Link></button>
             </div>
           </div>
           <div className="explore-card">
@@ -74,7 +87,7 @@ const FirstScreen = () => {
               alt=""
             />
             <div className="explore-card-content">
-              <h1>Jean</h1>
+            <button style={{color: "black"}} onClick={() => setCategory("Jean")}><Link style={{color: "black"}} to="/products">Jean</Link></button>
             </div>
           </div>
         </div>

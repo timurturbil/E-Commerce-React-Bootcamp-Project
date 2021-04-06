@@ -11,31 +11,120 @@ import DetailedScreen from "./screens/DetailedScreen/DetailedScreen"
 import OrderScreen from "./screens/OrderScreen/OrderScreen"
 import HomeScreen from "./screens/HomeScreen/HomeScreen"
 import Footer from "./components/Footer/Footer"
+import React, {useState, useEffect} from 'react';
+import fire from './firebase/fire';
 
 function App() {
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [hasAccount, setHasAccount] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [OrderNumber, setOrderNumber] = useState(JSON.parse(localStorage.getItem("OrderList")).length);
+  const [category, setCategory] = useState("");
+  const [fetchData, setFetchData] = useState(false);
+
+  const clearInputs = () => {
+    setEmail("");
+    setPassword("");
+  }
+  const clearErrors = () => {
+    setEmailError("");
+    setPasswordError("");
+  }
+
+  const handleSignup = () => {
+    clearErrors();
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch(err => {
+        switch (err.code) {
+          case "auth/email-already-in-use":
+          case "auth/invalid-email":
+            setEmailError(err.message);
+            break;
+          case "auth/weak-password":
+            setPasswordError(err.message);
+            break;
+        }
+      })
+  }
+  const handleLogin = () => {
+    clearErrors();
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(err => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+            setEmailError(err.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            break;
+        }
+      })
+  }
+   const handleLogout = () => {
+     fire.auth().signOut();
+  }
+  const authListener = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        clearInputs();
+        setUser(user)
+      } else {
+        setUser("");
+      }
+    });
+  }
+
+  useEffect(() => {
+    authListener();
+  },[]);
 
   return (
     <Router>
       <div>
         <Switch>
           <Route path="/detailed">
-            <DetailedScreen />
+            <DetailedScreen setOrderNumber={setOrderNumber}/>
           </Route>
           <Route path="/order">
-            <OrderScreen />
+            <OrderScreen setOrderNumber={setOrderNumber}/>
           </Route>
-          <Route exact path="/" component={FirstScreen}>
-            <Navbar />
-            <FirstScreen/>
+          <Route exact path="/" >
+            <Navbar setCategory={setCategory} setFetchData={setFetchData}  OrderNumber={OrderNumber}/>
+            <FirstScreen setCategory={setCategory}/>
             <Footer/>
           </Route>
-          <Route path="/products" component={HomeScreen}>
-            <Navbar />
-            <HomeScreen/>
+          <Route path="/products" >
+            <Navbar setCategory={setCategory} setFetchData={setFetchData} OrderNumber={OrderNumber}/>
+            <HomeScreen category={category} setFetchData={setFetchData} fetchData={fetchData}/>
             <Footer/>
           </Route>
-          <Route path="/loginScreen" component={LoginScreen}>
-            <LoginScreen/>
+          <Route path="/loginScreen">
+            { user ? 
+            <>
+            <Navbar LogOut={handleLogout} OrderNumber={OrderNumber} />
+            <FirstScreen setCategory={setCategory}/>
+            <Footer/>
+            </> :
+            <LoginScreen email={email}
+                setEmail={setEmail}
+                password={password}
+                setPassword={setPassword}
+                handleLogin={handleLogin}
+                handleSignup={handleSignup}
+                emailError={emailError}
+                passwordError={passwordError}
+                hasAccount={hasAccount}
+                setHasAccount={setHasAccount}
+                />}
           </Route>
         </Switch>
       </div>

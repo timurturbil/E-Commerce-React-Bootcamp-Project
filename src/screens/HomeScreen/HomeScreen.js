@@ -3,16 +3,14 @@ import {
   Link, withRouter
 } from "react-router-dom";
 import './HomeScreen.css';
+import CardItem from '../../components/Card/Card';
 class HomeScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
       data: {},
       orderedList: [],
-      limit: 3,
-      priceMin: 10,
-      priceMax: 100,
-      category: "",
+      limit: 10,
       fetchData: false,
     }
   }
@@ -20,7 +18,7 @@ class HomeScreen extends Component {
     this.setState({
       orderedList: []
     })
-    fetch("https://asos2.p.rapidapi.com/products/v2/list?offset=0&categoryId=4209&limit=10&store=US&country=US&priceMin=10&currency=USD&priceMax=100&sort=freshness&lang=en-US&q=shoes&sizeSchema=US", {
+    fetch(`https://asos2.p.rapidapi.com/products/v2/list?offset=0&categoryId=4209&limit=${this.state.limit}&store=US&country=US&currency=USD&sort=freshness&lang=en-US&q=${this.props.category}&sizeSchema=US`, {
       "method": "GET",
       "headers": {
         "x-rapidapi-key": "f1a0f880b9msh6718e6f56226525p166972jsn0a4691fbd022",
@@ -28,20 +26,16 @@ class HomeScreen extends Component {
       }
     })
       .then(response => response.json()).then(response => {
-        console.log(response);
+        /* console.log(response); */
         this.setState({ data: response })})
       .catch(err => {
         console.error(err);
       });
   }
   componentDidUpdate(prevProps, prevState) {
-    const previousOrderList = JSON.parse(localStorage.getItem('OrderList')) || []
-    const stateList = this.state.orderedList
-    const MyOrderList = previousOrderList.concat(stateList); 
-    localStorage.setItem("OrderList", JSON.stringify(MyOrderList))
-    if(this.state.fetchData){
+    if(this.props.fetchData){
       console.log("veri çekiliyor")
-      fetch(`https://asos2.p.rapidapi.com/products/v2/list?offset=0&categoryId=4209&limit=${this.state.limit}&store=US&country=US&priceMin=${this.state.priceMin}&currency=USD&priceMax=${this.state.priceMax}&sort=freshness&lang=en-US&q=${this.state.category}&sizeSchema=US`, {
+      fetch(`https://asos2.p.rapidapi.com/products/v2/list?offset=0&categoryId=4209&limit=${this.state.limit}&store=US&country=US&currency=USD&sort=freshness&lang=en-US&q=${this.props.category}&sizeSchema=US`, {
       "method": "GET",
       "headers": {
         "x-rapidapi-key": "f1a0f880b9msh6718e6f56226525p166972jsn0a4691fbd022",
@@ -49,12 +43,12 @@ class HomeScreen extends Component {
       }
     })
       .then(response => response.json()).then(response => {
-        console.log(response);
+        /* console.log(response); */
         this.setState({ data: response })})
       .catch(err => {
         console.error(err);
       });
-      this.setState({fetchData: false})
+      this.props.setFetchData(false);
     }
   }
   deleteLocalStorage() {
@@ -64,8 +58,11 @@ class HomeScreen extends Component {
     localStorage.setItem('CurrentItem', JSON.stringify(item))
   }
   render() {
+    console.log(this.state.data)
+    /* console.log(this.props) */
+    /* let dataList = this.state.data.products; */
     let dataList = this.state.data.products;
-    console.log(dataList)
+    /* console.log(dataList) */
     return (
       <div>
         <button onClick={this.props.LogOut}>LogOut</button>
@@ -73,24 +70,13 @@ class HomeScreen extends Component {
           <Link to="/order">order</Link>
         </div>
         <div>
-          <input type="number" onChange={(event)=> this.setState({limit: event.target.value})} placeholder="Limit"/>
-          <input type="number" onChange={(event)=> this.setState({priceMin: event.target.value})} placeholder="priceMin"/>
-          <input type="number" onChange={(event)=> this.setState({priceMax: event.target.value})} placeholder="priceMax"/>
-          <input type="text" onChange={(event)=> this.setState({category: event.target.value})} placeholder="Category"/>
-          <button onClick={() => this.setState({fetchData: true})}>Bas</button>
         </div>
-        <div>
+        <div className="Items">
           {dataList && dataList.map((item, index) => {
             return (
-
               <div className="majorImage" data-aos="zoom-in-up" key={index}>
-                <Link to="/detailed">
-                  <button onClick={() => this.storeCurrentItem(item)}><img src={`http://${item.imageUrl}`} alt="item yok" /></button>
-                </Link>
-                <button onClick={() => this.setState({ orderedList: [...this.state.orderedList, item] })} className="myButton">Order</button>
-                <p>{item.price.current.text} ||  {item.name}</p>
+                <CardItem item={item} storeCurrentItem={this.storeCurrentItem}/>
               </div>
-
             )
           })}
         </div>

@@ -14,6 +14,9 @@ class OrderScreen extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     var items = JSON.parse(localStorage.getItem("OrderList"));
+    this.props.setOrderNumber(items.length)
+
+    
     console.log(items)
     console.log(this.state.orderList)
     if (items.length !== this.state.orderList.length) {
@@ -32,15 +35,16 @@ class OrderScreen extends Component {
     return (
       <div>
         <div>
-          <Link to="/">Go Back</Link>
+          <Link to="/products">Go Back</Link>
         </div>
         {orderList && orderList.map((item, index) => {
           return (
-            <div className="majorImage" data-aos="zoom-in-up" key={index}>
+            <div className="majorItem" data-aos="zoom-in-up" key={index}>
 
-              <img src={`https://${item.imageUrl}`} alt="item yok" />
+             <img style={{width: "400px", height: "300px"}} src={`https://${item.imageUrl}`} alt="item yok" />
               <button onClick={() => this.removeItem(item.id)}>Delete Item</button>
-              <p>{item.price.current.text} ||  {item.name}</p>
+              <p> {item.name}</p>
+              {/* <p>{item.price.current.text} ||  {item.name}</p> */}
             </div>
 
           )
