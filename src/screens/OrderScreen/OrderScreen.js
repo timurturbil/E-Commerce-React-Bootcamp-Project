@@ -2,6 +2,7 @@ import { Component } from "react";
 import {
   Link
 } from "react-router-dom";
+import './OrderScreen.css';
 class OrderScreen extends Component {
   constructor(props) {
     super(props);
@@ -33,22 +34,26 @@ class OrderScreen extends Component {
   render() {
     let orderList = this.state.orderList;
     return (
-      <div>
+      <div className="mainOrderScreen">
         <div>
           <Link to="/products">Go Back</Link>
         </div>
-        {orderList && orderList.map((item, index) => {
+        {orderList && orderList.length > 0 ? orderList.map((item, index) => {
           return (
-            <div className="majorItem" data-aos="zoom-in-up" key={index}>
+            <div className="majorItem5" data-aos="zoom-in-up" key={index}>
 
-             <img style={{width: "400px", height: "300px"}} src={`https://${item.imageUrl}`} alt="item yok" />
+             <img className="myImage5" style={{width: "400px", height: "300px"}} src={`https://${item.imageUrl}`} alt="item yok" />
               <button onClick={() => this.removeItem(item.id)}>Delete Item</button>
               <p> {item.name}</p>
               {/* <p>{item.price.current.text} ||  {item.name}</p> */}
             </div>
 
           )
-        })}
+        }): <div className="OrderListMessage">
+          <div className="OrderListMessage2">
+          <h4>Your CartList Is Empty</h4>
+          </div>
+        </div> }
       </div>
     )
   }

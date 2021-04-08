@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
 import mountain from "../../assets/mountain.png";
-import { BiLogOutCircle, BiFilm } from "react-icons/bi";
+import { BiLogOutCircle, BiFilm,BiX } from "react-icons/bi";
 import IconButton from '@material/react-icon-button';
 const Navbar = (props) => {
   const {
@@ -32,7 +32,7 @@ const Navbar = (props) => {
                size="50"
                className="form-control"
                 type="search"
-                placeholder="Search"
+                placeholder="Search Product Category"
                 aria-label="Search"
                 onChange={(input) => setMyCategory(input.target.value)}
               />
@@ -53,10 +53,12 @@ const Navbar = (props) => {
               <i className="fas fa-shopping-cart"></i>
               <span className="nav-count">{OrderNumber}</span>
             </Link>
-            <IconButton className="nav-button" onClick={props.LogOut}>
-                        <div className="myIcons"><BiLogOutCircle color="black" size={22} /></div>
-              </IconButton>
           </div>
+          <Link to="/loginScreen">
+          <IconButton className="nav-button" onClick={props.LogOut}>
+              <BiLogOutCircle style={{marginTop: "0px"}} color="black" size={22} />
+              </IconButton> 
+              </Link>
           <div className="nav-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
           </div>

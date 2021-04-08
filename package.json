@@ -5,12 +5,13 @@
   "dependencies": {
     "@iconify/icons-bi": "^1.1.4",
     "@material/react-icon-button": "^0.15.0",
+    "@material/react-material-icon": "^0.15.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "cors": "^2.8.5",
     "firebase": "^8.3.2",
-    "google-translate-api": "^2.3.0",
+    "google-translate-api": "^2.0.3",
     "node-sass": "^5.0.0",
     "postscript": "^1.0.0",
     "react": "^17.0.1",
@@ -29,7 +30,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
-    "translate": "^1.2.3",
+    "translate": "^0.7.0",
     "translate-google": "^1.4.3",
     "translate-google-api": "^1.0.4",
     "web-vitals": "^1.1.0"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Slider from "react-slick";
 import clothes from "../../assets/clothes.jpeg"
 import tshirt from "../../assets/tshirt.jpg"
@@ -16,11 +16,13 @@ const FirstScreen = (props) => {
   } = props;
     const history = useHistory();
     
-    /* const sendData = (data, e) => {
+    useEffect(() => {
+      console.log("history pushhhh")
       history.push({
-         pathname:  "/products",
-      });
-   } */
+        pathname:  "/",
+     });
+    }, [])
+
     const settings = {
         dots: false,
         arrows: false,
@@ -43,8 +45,9 @@ const FirstScreen = (props) => {
                     <div className="slider-content">
                         <h1>Spring Collection</h1>
                         <div className="slider-wrapper-buttons">
+                        <button><Link style={{color: "black"}} to="/order">Explore</Link></button>
                         <button><Link style={{color: "black"}} to="/order">Shop Now</Link></button>
-                          <button><Link style={{color: "black"}} to="/products">Explore</Link></button>
+                          
                         </div>
                     </div>
                 </div>
@@ -53,9 +56,8 @@ const FirstScreen = (props) => {
                     <div className="slider-content-1">
                         <h1>New Arrivals</h1>
                         <div className="slider-wrapper-buttons-1">
+                        <button><Link style={{color: "white"}} to="/products">Explore</Link></button>
                           <button><Link style={{color: "white"}} to="/order">Shop Now</Link></button>
-                          <button><Link style={{color: "white"}} to="/products">Explore</Link></button>
-                        
                         </div>
                     </div>
                 </div>

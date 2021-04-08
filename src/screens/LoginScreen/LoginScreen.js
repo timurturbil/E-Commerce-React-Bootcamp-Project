@@ -1,7 +1,8 @@
 import './LoginScreen.scss'
 import mountain from "../../assets/mountain.png"
 import { Link } from "react-router-dom";
-
+import React, {useEffect} from 'react';
+import { useHistory } from "react-router";
 const Login = (props) => {
   const {
     email,
@@ -16,7 +17,14 @@ const Login = (props) => {
     setHasAccount,
   
   } = props;
+  const history = useHistory();
 
+  useEffect(() => {
+    console.log("history pushhhhhhhh5555555")
+    history.push({
+      pathname:  "/loginScreen",
+   });
+  }, [])
   return (
     <>
       <nav>
@@ -42,7 +50,7 @@ const Login = (props) => {
                 <input type="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                 <p className="errMsg">{passwordError}</p>
                 <label></label>
-                {/* <Link className="nav-products mb-2" to="/products"> */}
+               {/*  <Link to="/"> */}
                 <button onClick={handleLogin}>SIGN IN</button>
                 {/* </Link> */}
 

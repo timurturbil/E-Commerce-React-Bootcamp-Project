@@ -2,7 +2,8 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Link
 } from "react-router-dom";
 import FirstScreen from "./screens/FirstScreen/FirstScreen"
 import Navbar from "./components/Navbar/Navbar"
@@ -11,8 +12,9 @@ import DetailedScreen from "./screens/DetailedScreen/DetailedScreen"
 import OrderScreen from "./screens/OrderScreen/OrderScreen"
 import HomeScreen from "./screens/HomeScreen/HomeScreen"
 import Footer from "./components/Footer/Footer"
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import fire from './firebase/fire';
+import WishScreen from './screens/WishScreen/WishScreen';
 
 function App() {
   const [user, setUser] = useState("");
@@ -21,10 +23,9 @@ function App() {
   const [hasAccount, setHasAccount] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [OrderNumber, setOrderNumber] = useState(JSON.parse(localStorage.getItem("OrderList")).length);
-  const [category, setCategory] = useState("");
+  const [OrderNumber, setOrderNumber] = useState(JSON.parse(localStorage.getItem("OrderList")).length || 0);
+  const [category, setCategory] = useState("boots");
   const [fetchData, setFetchData] = useState(false);
-
   const clearInputs = () => {
     setEmail("");
     setPassword("");
@@ -69,8 +70,8 @@ function App() {
         }
       })
   }
-   const handleLogout = () => {
-     fire.auth().signOut();
+  const handleLogout = () => {
+    fire.auth().signOut();
   }
   const authListener = () => {
     fire.auth().onAuthStateChanged((user) => {
@@ -80,52 +81,74 @@ function App() {
       } else {
         setUser("");
       }
+      console.log(user + "it is userrrrrrr")
     });
   }
 
   useEffect(() => {
     authListener();
-  },[]);
+  }, []);
 
   return (
     <Router>
       <div>
         <Switch>
+          <Route path="/favorites">
+            <Navbar LogOut={handleLogout} setCategory={setCategory} setFetchData={setFetchData} OrderNumber={OrderNumber} />
+            <WishScreen />
+            <Footer />
+          </Route>
           <Route path="/detailed">
-            <DetailedScreen setOrderNumber={setOrderNumber}/>
+            <Navbar LogOut={handleLogout} setCategory={setCategory} setFetchData={setFetchData} OrderNumber={OrderNumber} />
+            <DetailedScreen setOrderNumber={setOrderNumber} />
+            <Footer />
           </Route>
           <Route path="/order">
-            <OrderScreen setOrderNumber={setOrderNumber}/>
+            <Navbar LogOut={handleLogout} setCategory={setCategory} setFetchData={setFetchData} OrderNumber={OrderNumber} />
+            <OrderScreen setOrderNumber={setOrderNumber} />
+            <Footer />
           </Route>
           <Route exact path="/" >
-            <Navbar setCategory={setCategory} setFetchData={setFetchData}  OrderNumber={OrderNumber}/>
-            <FirstScreen setCategory={setCategory}/>
-            <Footer/>
+            <Navbar LogOut={handleLogout} setCategory={setCategory} setFetchData={setFetchData} OrderNumber={OrderNumber} />
+            <FirstScreen setCategory={setCategory} />
+            <Footer />
           </Route>
           <Route path="/products" >
-            <Navbar setCategory={setCategory} setFetchData={setFetchData} OrderNumber={OrderNumber}/>
-            <HomeScreen category={category} setFetchData={setFetchData} fetchData={fetchData}/>
-            <Footer/>
+            <Navbar LogOut={handleLogout} setCategory={setCategory} setFetchData={setFetchData} OrderNumber={OrderNumber} />
+            <HomeScreen category={category} setFetchData={setFetchData} fetchData={fetchData} />
+            <Footer />
           </Route>
-          <Route path="/loginScreen">
-            { user ? 
+          {/* <Route path="/loginScreen" >
+            <LoginScreen email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              handleLogin={handleLogin}
+              handleSignup={handleSignup}
+              emailError={emailError}
+              passwordError={passwordError}
+              hasAccount={hasAccount}
+              setHasAccount={setHasAccount}
+            />
+          </Route> */}
+          {user ?
             <>
-            <Navbar LogOut={handleLogout} OrderNumber={OrderNumber} />
-            <FirstScreen setCategory={setCategory}/>
-            <Footer/>
+              <Navbar LogOut={handleLogout} OrderNumber={OrderNumber} />
+              <FirstScreen setCategory={setCategory} />
+              <Footer />
             </> :
             <LoginScreen email={email}
-                setEmail={setEmail}
-                password={password}
-                setPassword={setPassword}
-                handleLogin={handleLogin}
-                handleSignup={handleSignup}
-                emailError={emailError}
-                passwordError={passwordError}
-                hasAccount={hasAccount}
-                setHasAccount={setHasAccount}
-                />}
-          </Route>
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              handleLogin={handleLogin}
+              handleSignup={handleSignup}
+              emailError={emailError}
+              passwordError={passwordError}
+              hasAccount={hasAccount}
+              setHasAccount={setHasAccount}
+            />
+          }
         </Switch>
       </div>
     </Router>

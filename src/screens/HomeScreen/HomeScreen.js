@@ -10,7 +10,7 @@ class HomeScreen extends Component {
     this.state = {
       data: {},
       orderedList: [],
-      limit: 10,
+      limit: 40,
       fetchData: false,
     }
   }
@@ -26,7 +26,6 @@ class HomeScreen extends Component {
       }
     })
       .then(response => response.json()).then(response => {
-        /* console.log(response); */
         this.setState({ data: response })})
       .catch(err => {
         console.error(err);
@@ -59,10 +58,7 @@ class HomeScreen extends Component {
   }
   render() {
     console.log(this.state.data)
-    /* console.log(this.props) */
-    /* let dataList = this.state.data.products; */
     let dataList = this.state.data.products;
-    /* console.log(dataList) */
     return (
       <div>
         <button onClick={this.props.LogOut}>LogOut</button>
