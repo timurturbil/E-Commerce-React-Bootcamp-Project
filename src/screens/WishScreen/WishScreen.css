@@ -4,7 +4,8 @@
 }
 
 .majorItem4{
-    background-color: white;
+    border-bottom: 1px solid #ccc;
+    background-color: rgb(255, 255, 255);
     width: 100%;
     height: 100%;
     margin: 0px;
@@ -19,8 +20,11 @@
     height: 167px;
     
 }
-.myAllItems{
+.GoBack{
     margin-top: 100px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+    /* margin: 80px; */
 }
 
 .WishlistWord{
@@ -48,11 +52,10 @@
     height: 0px;
 }
 
-.InfoProduct{
-    /* background-color: orange; */
+.InfoProduct{   
     float: right;
-    margin-right: 56%;
-    margin-top: 1.5%;
+    margin-right: 55%;  
+    margin-top: 2%;
     width: 300px;
 }
 
@@ -64,12 +67,14 @@
     background-color: white;
     margin: 0px;
 }
-/* .containButton{
-    float: right;
-} */
 .myButton8{
-    background-color: black;
-    width: 100px;
-    height: 50px;
-    /* float: right; */
+    font-size: 15px;
+    background-color: rgba(0, 0, 0, 0.199);
+    margin: 0px;
+    float: right;
+    
+}
+
+.mainItems8{
+    margin-left: 40px;
 }

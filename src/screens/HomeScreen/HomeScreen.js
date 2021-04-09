@@ -1,6 +1,6 @@
-import { Component, useEffect, useState } from 'react';
+import { Component} from 'react';
 import {
-  Link, withRouter
+  Link
 } from "react-router-dom";
 import './HomeScreen.css';
 import CardItem from '../../components/Card/Card';

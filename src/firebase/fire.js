@@ -13,3 +13,17 @@ const firebaseConfig = {
 const fire = firebase.initializeApp(firebaseConfig);
 
 export default fire;
+
+/* .myButton17{
+  background-color: black;
+  width: 100px;
+  height: 0px;
+  margin: 10px;
+  
+}
+.myButton18{
+  background-color: black;
+  width: 100px;
+  height: 0px;
+  margin: 10px;
+} */

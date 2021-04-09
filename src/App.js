@@ -1,9 +1,7 @@
-import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import FirstScreen from "./screens/FirstScreen/FirstScreen"
 import Navbar from "./components/Navbar/Navbar"
@@ -23,8 +21,8 @@ function App() {
   const [hasAccount, setHasAccount] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [OrderNumber, setOrderNumber] = useState(JSON.parse(localStorage.getItem("OrderList")).length || 0);
-  const [category, setCategory] = useState("boots");
+  const [OrderNumber, setOrderNumber] = useState(JSON.parse(localStorage.getItem("OrderList")) ? JSON.parse(localStorage.getItem("OrderList")).length : 0);
+  const [category, setCategory] = useState("watch");
   const [fetchData, setFetchData] = useState(false);
   const clearInputs = () => {
     setEmail("");
@@ -49,6 +47,8 @@ function App() {
           case "auth/weak-password":
             setPasswordError(err.message);
             break;
+          default:
+            console.log("default")  
         }
       })
   }
@@ -67,6 +67,8 @@ function App() {
           case "auth/wrong-password":
             setPasswordError(err.message);
             break;
+          default:
+            console.log("default")
         }
       })
   }
@@ -81,13 +83,12 @@ function App() {
       } else {
         setUser("");
       }
-      console.log(user + "it is userrrrrrr")
     });
   }
 
   useEffect(() => {
     authListener();
-  }, []);
+  });
 
   return (
     <Router>
@@ -118,19 +119,6 @@ function App() {
             <HomeScreen category={category} setFetchData={setFetchData} fetchData={fetchData} />
             <Footer />
           </Route>
-          {/* <Route path="/loginScreen" >
-            <LoginScreen email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-              handleLogin={handleLogin}
-              handleSignup={handleSignup}
-              emailError={emailError}
-              passwordError={passwordError}
-              hasAccount={hasAccount}
-              setHasAccount={setHasAccount}
-            />
-          </Route> */}
           {user ?
             <>
               <Navbar LogOut={handleLogout} OrderNumber={OrderNumber} />

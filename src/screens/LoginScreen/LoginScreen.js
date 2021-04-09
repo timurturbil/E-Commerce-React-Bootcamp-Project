@@ -20,7 +20,6 @@ const Login = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("history pushhhhhhhh5555555")
     history.push({
       pathname:  "/loginScreen",
    });
@@ -29,7 +28,7 @@ const Login = (props) => {
     <>
       <nav>
         <Link to="/">
-          <img src={mountain} />
+          <img src={mountain} alt="no item"/>
         </Link>
       </nav>
       <section className="login">

@@ -17,11 +17,10 @@ const FirstScreen = (props) => {
     const history = useHistory();
     
     useEffect(() => {
-      console.log("history pushhhh")
       history.push({
         pathname:  "/",
      });
-    }, [])
+    })
 
     const settings = {
         dots: false,

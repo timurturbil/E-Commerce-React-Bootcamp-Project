@@ -1,27 +1,34 @@
 import { Component } from "react";
-import {
-  Link
-} from "react-router-dom";
-import './OrderScreen.css';
+import './OrderScreen.scss';
 class OrderScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      orderList: []
+      orderList: [],
+      totalPrice: 0,
     }
   }
   componentDidMount() {
-    this.setState({ orderList: JSON.parse(localStorage.getItem("OrderList")) })
+    let myOrderList = JSON.parse(localStorage.getItem("OrderList")) ? JSON.parse(localStorage.getItem("OrderList")) : [];
+    let myTotalPrice = 0;
+    console.log(myOrderList)
+    myOrderList.length > 0 ? myOrderList.map((item, index) => {
+      myTotalPrice += item.price.current.value
+    }) : myTotalPrice = 0;
+    this.setState({ orderList: myOrderList, totalPrice: myTotalPrice })
+
   }
   componentDidUpdate(prevProps, prevState) {
-    var items = JSON.parse(localStorage.getItem("OrderList"));
+    let myOrderList = JSON.parse(localStorage.getItem("OrderList")) ? JSON.parse(localStorage.getItem("OrderList")) : [];
+    console.log(myOrderList)
+    let myTotalPrice = 0;
+    myOrderList.map((item, index) => {
+      myTotalPrice += item.price.current.value
+    })
+    var items = myOrderList;
     this.props.setOrderNumber(items.length)
-
-    
-    console.log(items)
-    console.log(this.state.orderList)
     if (items.length !== this.state.orderList.length) {
-      this.setState({ orderList: JSON.parse(localStorage.getItem("OrderList")) })
+      this.setState({ orderList: myOrderList, totalPrice: myTotalPrice })
     }
   }
 
@@ -31,32 +38,53 @@ class OrderScreen extends Component {
     items = items.filter(function (e) { return e.id !== id; });
     localStorage.setItem("OrderList", JSON.stringify(items));
   }
+
+
   render() {
     let orderList = this.state.orderList;
     return (
-      <div className="mainOrderScreen">
-        <div>
-          <Link to="/products">Go Back</Link>
-        </div>
-        {orderList && orderList.length > 0 ? orderList.map((item, index) => {
-          return (
-            <div className="majorItem5" data-aos="zoom-in-up" key={index}>
+      <main>
+        {orderList.length > 0 ? <div className="mainDiv70">
+          <div className="shoppingCard">
+            {orderList && orderList.map((item, index) => {
+              return (
+                <div className="basket-product" data-aos="zoom-in-up" key={index}>
+                  <div className="item">
+                    <div className="product-image">
+                      <img className="product-frame" src={`https://${item.imageUrl}`} alt="item yok" />
+                    </div>
+                    <div className="product-name">
+                      <p>Brand Name: {item.brandName}</p>
+                      <p>Name: {item.name}</p>
+                      <p>Price: {item.price.current.text}</p>
+                      <p>Product Code: {item.productCode}</p>
+                    </div>
+                    <div className="remove">
+                      <button onClick={() => this.removeItem(item.id)}>Remove Product</button>
+                    </div>
+                  </div>
 
-             <img className="myImage5" style={{width: "400px", height: "300px"}} src={`https://${item.imageUrl}`} alt="item yok" />
-              <button onClick={() => this.removeItem(item.id)}>Delete Item</button>
-              <p> {item.name}</p>
-              {/* <p>{item.price.current.text} ||  {item.name}</p> */}
-            </div>
-
-          )
-        }): <div className="OrderListMessage">
-          <div className="OrderListMessage2">
-          <h4>Your CartList Is Empty</h4>
+                </div>
+              )
+            })}
           </div>
-        </div> }
-      </div>
+          <aside>
+            <div className="summary">
+              <div className="summary-total">
+                <div className="total-title">Total</div>
+                <div className="total-value final-value" id="basket-total">{this.state.totalPrice}.00</div>
+              </div>
+              <div className="summary-checkout">
+                <button className="checkout-cta">Go to Secure Checkout</button>
+              </div>
+            </div>
+          </aside>
+        </div> : <div className="Empty">Your Order List Is Empty</div>}
+      </main>
     )
   }
 }
+
+
 
 export default OrderScreen;

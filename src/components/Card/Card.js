@@ -5,16 +5,16 @@ import {
 import './Card.scss';
 const CardItem = (props) => {
     return (
-        <div class="card-row">
-            <div class="card">
+        <div className="card-row">
+            <div className="card">
             <Link to="/detailed">
-                <img  onClick={() => props.storeCurrentItem(props.item)} class="card-image" src={`https://${props.item.imageUrl}`} alt="item yok" />
+                <img  onClick={() => props.storeCurrentItem(props.item)} className="card-image" src={`https://${props.item.imageUrl}`} alt="item yok" />
                 </Link>
-                <div class="card-footer">
-                    <p class="card-text">{props.item.brandName}</p>
-                    <h3 class="card-title">{props.item.name}</h3>
-                    <p class="card-text">
-                        <span class="card-author">{props.item.price.current.text}</span>
+                <div className="card-footer">
+                    <p className="card-text">{props.item.brandName}</p>
+                    <h3 className="card-title">{props.item.name}</h3>
+                    <p className="card-text">
+                        <span className="card-author">{props.item.price.current.text}</span>
                     </p>
                 </div>
             </div>
@@ -23,14 +23,3 @@ const CardItem = (props) => {
 }
 
 export default CardItem;
-
-{/* <div className="CardItem">
-            <Link to="/detailed">
-                <img onClick={() => props.storeCurrentItem(props.item)} className="CardImage" src={`https://${props.item.imageUrl}`} alt="item yok" />
-            </Link>
-            <div className="ItemDetails">
-            <h5>{props.item.name} </h5>
-            <h5>$20.99</h5>
-            </div>
-            
-        </div> */}

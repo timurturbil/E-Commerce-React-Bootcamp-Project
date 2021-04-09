@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
 import mountain from "../../assets/mountain.png";
-import { BiLogOutCircle, BiFilm,BiX } from "react-icons/bi";
+import { BiLogOutCircle } from "react-icons/bi";
 import IconButton from '@material/react-icon-button';
 const Navbar = (props) => {
   const {
@@ -24,7 +24,7 @@ const Navbar = (props) => {
         <div className="container">
           <div className="brand">
             <Link  to="/">
-              <img src={mountain} />
+              <img src={mountain} alt="no item"/>
             </Link>
           </div>
           <div className="myItems">
