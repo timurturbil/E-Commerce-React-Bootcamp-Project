@@ -1,6 +1,6 @@
 # Project: Everest
 
-* Everest is an E-Commerce project with ReactJS.
+* Everest is an E-Commerce site made with React.
 
 * The project consists of product, login, register, product details, favorite pages.
 
